@@ -1,0 +1,61 @@
+<html>
+<head>
+    <title>测试Ajax</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>  
+
+    <style type="text/css">
+
+#result{
+    border: 10px;
+    font-size: 50px;
+    background: #ff0fef;
+}
+
+
+    </style>
+
+</head>
+
+<body>
+
+    <div id="app">
+    <input id="name" v-model="shuru" > <br>
+    <button id="foo" @click="btnclick()" >点击</button>
+
+    <p>{[shuru]}</p>
+    {[info]}
+    </div>
+    
+<script type = "text/javascript">
+new Vue({
+  el: '#app',
+  data : {
+    info : "",
+    shuru : "",
+  },
+  methods :  {
+    btnclick: function(){
+    var word = document.getElementById("name").value;
+    console.log(word);
+    axios({
+        method:'post',
+        url:'http://210.45.78.50:12500/test',
+        data:JSON.stringify(word)
+        })
+      .then(response => (this.info = response.data))
+      .catch(function (error) { // 请求失败处理
+        console.log(error);
+      });
+   },
+ },
+    delimiters: ['{[', ']}']
+
+})
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>合作方登录</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+</head>
+
+<div class="dowebok" id="app">
+	<div class="container-login100">
+		<div class="wrap-login100">
+			<div class="login100-pic js-tilt" data-tilt>
+				<img src="images/img-01.png" alt="IMG">
+			</div>
+
+			<form class="login100-form validate-form">
+				<span class="login100-form-title">
+					小车控制界面
+				</span>
+
+				<div class="wrap-input100 validate-input">
+					<input id="username" class="input100" type="text" name="email" placeholder="请输入坐标">
+					<span class="focus-input100"></span>
+					<span class="symbol-input100">
+						<i class="fa fa-envelope" aria-hidden="true"></i>
+					</span>
+				</div>
+				
+				<div id="app" class="container-login100-form-btn">
+					<button class="login100-form-btn"  type= "button" @click="btnclick()">
+						确定
+					</button>
+				</div>
+
+				<div class="text-center p-t-12">
+					<p >
+						{[info]}
+                    </p>
+				</div>
+
+				<div class="text-center p-t-136">
+					<a class="txt2" href="#" target="_blank">
+							刷新本页面
+						<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+					</a>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+<script type = "text/javascript">
+new Vue({
+  el: '#app',
+  data : {
+      info: ""
+  },
+  methods :  {
+    btnclick: function(){
+    var fanhui
+    var word = document.getElementById("username").value;
+    console.log(word);
+    axios({
+        method:'post',
+        url:'http://127.0.0.1:20867/zuobiao',
+        data: word
+        })
+      .then( response  =>  this.info=response.data )
+      .catch(function (error) { // 请求失败处理
+        console.log(error);
+      });
+      console.log(fanhui);
+   },
+ },
+    delimiters: ['{[', ']}']
+})
+</script>
+
+</body>
+</html>

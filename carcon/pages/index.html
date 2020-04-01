@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>合作方登录</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+</head>
+
+<body>
+<div class="dowebok">
+	<div class="container-login100">
+		<div class="wrap-login100">
+			<div class="login100-pic js-tilt" data-tilt>
+				<img src="images/img-01.png" alt="IMG">
+			</div>
+
+			<form class="login100-form validate-form">
+				<span class="login100-form-title">
+					合作方登陆
+				</span>
+
+				<div class="wrap-input100 validate-input">
+					<input id="username" class="input100" type="text" name="email" placeholder="邮箱">
+					<span class="focus-input100"></span>
+					<span class="symbol-input100">
+						<i class="fa fa-envelope" aria-hidden="true"></i>
+					</span>
+				</div>
+
+				<div class="wrap-input100 validate-input">
+					<input id="password" class="input100" type="text" name="pass" placeholder="密码">
+					<span class="focus-input100"></span>
+					<span class="symbol-input100">
+						<i class="fa fa-lock" aria-hidden="true"></i>
+					</span>
+				</div>
+				
+				<div id="app" class="container-login100-form-btn">
+					<button class="login100-form-btn"  type= "button" @click="btnclick()">
+						登陆
+					</button>
+				</div>
+
+				<div class="text-center p-t-12">
+					<a class="txt2" href="javascript:">
+						忘记密码？
+					</a>
+				</div>
+
+				<div class="text-center p-t-136">
+					<a class="txt2" href="#" target="_blank">
+							刷新本页面
+						<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+					</a>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+<script type = "text/javascript">
+new Vue({
+  el: '#app',
+  methods :  {
+    btnclick: function(){
+    var fanhui
+    var word = document.getElementById("username").value;
+    var word1 = document.getElementById("password").value;
+    var word2 = word + '.' + word1;
+    console.log(word);
+    console.log(word1);
+    console.log(word2);
+    axios({
+        method:'post',
+        url:'http://127.0.0.1:20867/check',
+        data: word2 
+        })
+      .then( response  =>  window.location.href=response.data )
+      .catch(function (error) { // 请求失败处理
+        console.log(error);
+      });
+      console.log(fanhui);
+   },
+
+
+ }
+})
+</script>
+
+</body>
+</html>
